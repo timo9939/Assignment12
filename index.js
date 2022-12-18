@@ -1,4 +1,11 @@
 const inquirer=require('inquirer')
+const db = require('./db/server')
+constdb=require('./db/server')
+
+db.connect(err=>{
+    if (err) throw err;
+    console.log('Connected to database');
+})
 
 
 let mainPrompt=function(){
