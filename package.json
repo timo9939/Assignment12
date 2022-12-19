@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/timo9939/Assignment12/issues"
   },
-  "homepage": "https://github.com/timo9939/Assignment12#readme"
+  "homepage": "https://github.com/timo9939/Assignment12#readme",
+  "dependencies": {
+    "mysql2": "^2.3.3"
+  }
 }
