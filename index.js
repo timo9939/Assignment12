@@ -1,79 +1,71 @@
-const inquirer=require('inquirer');
+const inquirer = require('inquirer');
 const db = require('./db/server');
 
 
-let mainPrompt=()=>{
- inquirer.prompt([{
-        type:'list',
-        name:'firstPrompt',
-        message:'Choose your action',
-        choices:['view all departments','view all roles','view all employees','add a department', 'add a role','add an employee','update an employee role']
+let mainPrompt = async () => {
+    inquirer.prompt([{
+        type: 'list',
+        name: 'firstPrompt',
+        message: 'Choose your action',
+        choices: ['view all departments', 'view all roles', 'view all employees', 'add a department', 'add a role', 'add an employee', 'update an employee role']
 
     }])
-    .then((ans)=>{
-        if(ans.firstPrompt ==='view all departments'){
-        console.log('You choose '+ans.firstPrompt)
-        // db.query(`SELECT * FROM department`,(err,output)=>{
-                
-        // if(err) throw err;
-        // console.log('Department are: ')
-        // console.table(output);
-        mainPrompt();
+        .then((ans) => {
+            if (ans.firstPrompt === 'view all departments') {
+                console.log('You choose ' + ans.firstPrompt)
+                // db.query(`SELECT * FROM department`,(err,output)=>{
+
+                // if(err) throw err;
+                // console.log('Department are: ')
+                // console.table(output);
+                mainPrompt();
             }
-        else if(ans.firstPrompt === 'view all roles'){
-            console.log('You choose '+ans.firstPrompt)
-            mainPrompt();
-        }
+            else if (ans.firstPrompt === 'view all roles') {
+                console.log('You choose ' + ans.firstPrompt)
+                mainPrompt();
+            }
 
-        else if(ans.firstPrompt === 'view all employees'){
-           
-            mainPrompt();
-        }
+            else if (ans.firstPrompt === 'view all employees') {
 
-        else if(ans.firstPrompt === 'add a department'){
-            inquirer.prompt([{
-            type:'input',
-            name:'inputDepartment',
-            message:'Input the name of department'
-            }])
-           
-            mainPrompt();
-        }
+                mainPrompt();
+            }
 
-        else if(ans.firstPrompt === 'add a role'){
+            else if (ans.firstPrompt === 'add a department') {
+                inquirer.prompt([{
+                    type: 'input',
+                    name: 'inputDepartment',
+                    message: 'Input the name of department'
+                }]).then(() => mainPrompt())
+            }
 
-            inquirer.prompt([{
-                type:'input',
-                name:'inputRole',
-                message:'Input the name of role'
-                }])
+            else if (ans.firstPrompt === 'add a role') {
 
-            mainPrompt();
-        }
+                inquirer.prompt([{
+                    type: 'input',
+                    name: 'inputRole',
+                    message: 'Input the name of role'
+                }]).then(() => mainPrompt())
+            }
 
-        else if(ans.firstPrompt === 'add an employee'){
+            else if (ans.firstPrompt === 'add an employee') {
 
-            inquirer.prompt([{
-                type:'input',
-                name:'inputEmployee',
-                message:'Input the name of employee'
-                }])
+                inquirer.prompt([{
+                    type: 'input',
+                    name: 'inputEmployee',
+                    message: 'Input the name of employee'
+                }]).then(() => mainPrompt())
+            }
 
-            mainPrompt();
-        }
+            else {
 
-        else{
-
-            inquirer.prompt([{
-                type:'input',
-                name:'updateRole',
-                message:'select the employee to update'
-                }])
-
-            mainPrompt();
-        }
-    })
-        } 
+                inquirer.prompt([{
+                    type: 'input',
+                    name: 'updateRole',
+                    message: 'select the employee to update'
+                }]).then(() => mainPrompt())
+            }
+        })
+}
 //     })
 // }
 
