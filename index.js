@@ -1,4 +1,4 @@
-const inquirer=require('inquirer');
+const inquirer = require('inquirer');
 const db = require('./db/server');
 
 
@@ -14,7 +14,7 @@ let mainPrompt= async()=>{
         if(ans.firstPrompt ==='view all departments'){
         console.log('You choose '+ans.firstPrompt)
         // db.query(`SELECT * FROM department`,(err,output)=>{
-                
+
         // if(err) throw err;
         // console.log('Department are: ')
         // console.table(output);
@@ -40,8 +40,15 @@ let mainPrompt= async()=>{
             await  mainPrompt();
         }
 
-        else if(ans.firstPrompt === 'add a role'){
-
+    else if (ans.firstPrompt === 'add a department') {
+        await inquirer.prompt([{
+            type: 'input',
+            name: 'inputDepartment',
+            message: 'Input the name of department'
+        }])
+        await mainPrompt()
+    }
+    else if (ans.firstPrompt === 'add a role'){
         await inquirer.prompt([{
                 type:'input',
                 name:'inputRole',
@@ -51,7 +58,7 @@ let mainPrompt= async()=>{
          await mainPrompt();
         }
 
-        else if(ans.firstPrompt === 'add an employee'){
+    else if (ans.firstPrompt === 'add an employee') {
 
         await inquirer.prompt([{
                 type:'input',
