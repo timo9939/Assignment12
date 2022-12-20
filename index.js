@@ -2,6 +2,7 @@ const inquirer = require('inquirer');
 const db = require('./db/server');
 
 
+
 let mainPrompt= async()=>{
  const ans = await inquirer.prompt([{
         type:'list',
@@ -12,7 +13,7 @@ let mainPrompt= async()=>{
     }])
   
         if(ans.firstPrompt ==='view all departments'){
-        console.log('You choose '+ans.firstPrompt)
+        // console.log('You choose '+ans.firstPrompt)
         // db.query(`SELECT * FROM department`,(err,output)=>{
 
         // if(err) throw err;
@@ -21,7 +22,7 @@ let mainPrompt= async()=>{
        await mainPrompt();
             }
         else if(ans.firstPrompt === 'view all roles'){
-            console.log('You choose '+ans.firstPrompt)
+            // console.log('You choose '+ans.firstPrompt)
             await mainPrompt();
         }
 
