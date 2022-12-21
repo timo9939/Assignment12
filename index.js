@@ -1,5 +1,5 @@
 const inquirer = require('inquirer');
-const db = require('./db/server');
+// const db = require('./db/server');
 
 
 
@@ -55,6 +55,16 @@ let mainPrompt= async()=>{
                 name:'inputRole',
                 message:'Input the name of role'
                 }])
+        await inquirer.prompt([{
+            type:'input',
+            name:'inputSalary',
+            message:'Input the salary'
+        }])
+        await inquirer.prompt([{
+            type:'input',
+            name:'inputDepRole',
+            message:'Input the department of the role'
+        }])
 
          await mainPrompt();
         }
@@ -63,9 +73,25 @@ let mainPrompt= async()=>{
 
         await inquirer.prompt([{
                 type:'input',
-                name:'inputEmployee',
-                message:'Input the name of employee'
+                name:'inputFirstName',
+                message:'Input the first name of employee'
                 }])
+
+        await inquirer.prompt([{
+                type:'input',
+                name:'inputLastName',
+                message:'Input the last name of employee'
+                    }])
+        await inquirer.prompt([{
+                type:'input',
+                name:'inputRole',
+                message:'Input the role of employee'
+                    }])
+        await inquirer.prompt([{
+                type:'input',
+                name:'inputManager',
+                message:'Input the name of the manager'
+        }])
 
         await mainPrompt();
         }
