@@ -1,7 +1,11 @@
 const inquirer = require('inquirer');
-// const db = require('./db/server');
+const db = require('./db/server');
 
-
+db.connect(err=>{
+    if (err) throw err;
+    console.log('Connected to the server.js');
+    mainPrompt();
+})
 
 let mainPrompt= async()=>{
  const ans = await inquirer.prompt([{
@@ -13,34 +17,36 @@ let mainPrompt= async()=>{
     }])
   
         if(ans.firstPrompt ==='view all departments'){
-        // console.log('You choose '+ans.firstPrompt)
-        // db.query(`SELECT * FROM department`,(err,output)=>{
+        db.query(`SELECT * FROM department`,(err,output)=>{
 
-        // if(err) throw err;
-        // console.log('Department are: ')
-        // console.table(output);
-       await mainPrompt();
-            }
+        if(err) throw err;
+        console.table(output);
+       mainPrompt();
+            })
+        }
         else if(ans.firstPrompt === 'view all roles'){
-            // console.log('You choose '+ans.firstPrompt)
-            await mainPrompt();
+            console.log('All roles are: ')
+            db.query(`SELECT* FROM role`,(err,output)=>{
+            
+                if(err) throw err;
+                console.table(output);
+                mainPrompt();
+            })
+            
         }
 
         else if(ans.firstPrompt === 'view all employees'){
-           
-            await mainPrompt();
+            console.log('All employees are: ')
+            db.query(`SELECT * FROM employee`,(err,output)=>{
+
+                if (err) throw err;
+                console.table(output);
+                mainPrompt();
+            })
+            
         }
 
-        else if(ans.firstPrompt === 'add a department'){
-         await inquirer.prompt([{
-            type:'input',
-            name:'inputDepartment',
-            message:'Input the name of department'
-            }])
-           
-            await  mainPrompt();
-        }
-
+        
     else if (ans.firstPrompt === 'add a department') {
         await inquirer.prompt([{
             type: 'input',
@@ -109,4 +115,3 @@ let mainPrompt= async()=>{
         
 
 
-mainPrompt();
