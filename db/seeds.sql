@@ -1,5 +1,5 @@
 INSERT INTO department
-(id,name)
+(id,de_name)
 VALUES
 (1,'Engineering'),
 (2,'Sales'),

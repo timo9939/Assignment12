@@ -12,7 +12,7 @@ let mainPrompt= async()=>{
         type:'list',
         name:'firstPrompt',
         message:'Choose your action',
-        choices:['view all departments','view all roles','view all employees','add a department', 'add a role','add an employee','update an employee role']
+        choices:['view all departments','view all roles','view all employees','add a department', 'add a role','add an employee','update an employee role','exit']
 
     }])
   
@@ -48,32 +48,53 @@ let mainPrompt= async()=>{
 
         
     else if (ans.firstPrompt === 'add a department') {
-        await inquirer.prompt([{
+        var deptInfo = await inquirer.prompt([{
             type: 'input',
             name: 'inputDepartment',
             message: 'Input the name of department'
         }])
-        await mainPrompt()
+
+        console.log(deptInfo);
+        // console.log(ans.de_name);
+       
+        const sql1=`INSERT INTO department (de_name) VALUES (?)`;
+
+        db.query(sql1, deptInfo.inputDepartment,(err)=>{
+            if(err) throw err;
+            console.log('New Department added');
+           mainPrompt();  
+        })
+       
     }
+
     else if (ans.firstPrompt === 'add a role'){
-        await inquirer.prompt([{
+       var title= await inquirer.prompt([{
                 type:'input',
-                name:'inputRole',
-                message:'Input the name of role'
+                name:'titleRole',
+                message:'Input the name of title'
                 }])
-        await inquirer.prompt([{
+      var salary=  await inquirer.prompt([{
             type:'input',
             name:'inputSalary',
             message:'Input the salary'
         }])
-        await inquirer.prompt([{
+        var dep_role =await inquirer.prompt([{
             type:'input',
             name:'inputDepRole',
             message:'Input the department of the role'
         }])
 
-         await mainPrompt();
+        var dataToInsert = [title.titleRole, salary.inputSalary, dep_role.inputDepRole]
+
+        db.query(`INSERT INTO role (title,salary,dRole) VALUES (?,?,?)`, dataToInsert,(err)=>{
+            if(err) throw err;
+             mainPrompt();
+    
+        })
+            
+         
         }
+    
 
     else if (ans.firstPrompt === 'add an employee') {
 
@@ -102,14 +123,27 @@ let mainPrompt= async()=>{
         await mainPrompt();
         }
 
-        else{
-        await inquirer.prompt([{
-                type:'input',
-                name:'updateRole',
-                message:'select the employee to update'
-                }])
+        else if (ans.firstPrompt === 'update an employee role'){
+            // ask the user which role they want to update
+            await inquirer.prompt([{
+                    type:'input',
+                    name:'updateRole',
+                    message:'select the employee to update'
+            }]);
 
-        await mainPrompt();
+            // ask the user what column they want to update
+
+            // ask the user what info they want in the col(s)
+
+            // update the role w/ the dbquery function
+
+            // call main prompt
+            await mainPrompt();
+        }
+
+        else {
+        db.end()
+        console.log('Exit Successful')
         }
     }
         
