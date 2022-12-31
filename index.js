@@ -187,7 +187,7 @@ let mainPrompt= async()=>{
                 var upManager= await inquirer.prompt([{
                     type:'input',
                     name:'update_man',
-                    message:'Input the updated role of employee'
+                    message:'Input the updated name of manager'
                 }]);
                 db.query(`UPDATE employee SET ManagerName =? WHERE em_id=?`,[upManager.update_man,updateByID.upByID],(err)=>{
                     if(err) throw err;

@@ -1,1 +1,15 @@
-# Assignment12
+# Assignment12: Employee Tracker
+
+## Description
+The Employee Tracker aims to manage the detail information of the employee. You can view and add the role,name and the responsible manager of each employee.
+<br/>
+
+## License
+N/A
+<br/>
+
+## Screenshot
+![Assignment12 Screenshot](Cap_Assi12.png)
+<br/>
+
+## Video Link
