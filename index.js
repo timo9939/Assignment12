@@ -97,48 +97,104 @@ let mainPrompt= async()=>{
     
 
     else if (ans.firstPrompt === 'add an employee') {
+    var emp_id= await inquirer.prompt([{
+        type:'input',
+        name:'em_id',
+        message:'Input the id of the employee'
+    }])
 
-        await inquirer.prompt([{
+    var first= await inquirer.prompt([{
                 type:'input',
                 name:'inputFirstName',
                 message:'Input the first name of employee'
                 }])
 
-        await inquirer.prompt([{
+    var last=   await inquirer.prompt([{
                 type:'input',
                 name:'inputLastName',
                 message:'Input the last name of employee'
                     }])
-        await inquirer.prompt([{
+    var roleEmp=  await inquirer.prompt([{
                 type:'input',
                 name:'inputRole',
                 message:'Input the role of employee'
                     }])
-        await inquirer.prompt([{
+    var inpMan=    await inquirer.prompt([{
                 type:'input',
                 name:'inputManager',
                 message:'Input the name of the manager'
         }])
 
-        await mainPrompt();
+        var addEmployee=[emp_id.em_id,first.inputFirstName,last.inputLastName,roleEmp.inputRole,inpMan.inputManager]
+        db.query(`INSERT INTO employee (em_id,firstName,lastName,em_role,ManagerName) VALUES (?,?,?,?,?)`,addEmployee,(err)=>{
+            if(err) throw err;
+             mainPrompt();
+        })
+      
         }
 
         else if (ans.firstPrompt === 'update an employee role'){
-            // ask the user which role they want to update
-            await inquirer.prompt([{
-                    type:'input',
-                    name:'updateRole',
-                    message:'select the employee to update'
+            var updateByID= await inquirer.prompt([{
+                type:'input',
+                name:'upByID',
+                message:'Input the employee ID to update the information'
+            }])
+            
+            
+            var update= await inquirer.prompt([{
+                type:'list',
+                name:'update_choice',
+                message:'Choose the information that you want to update of the employee',
+                choices:['First Name','Last Name','Role of Employee','Name of Manager']
+
+            }])
+
+            if(update.update_choice === 'First Name'){
+            var upFirst= await inquirer.prompt([{
+                type:'input',
+                name:'update_fn',
+                message:'Input the updated first name'
             }]);
+            db.query(`UPDATE employee SET firstName =? WHERE em_id=?`,[upFirst.update_fn,updateByID.upByID],(err)=>{
+                if(err) throw err;
+                mainPrompt();
+            })}
 
-            // ask the user what column they want to update
-
-            // ask the user what info they want in the col(s)
-
-            // update the role w/ the dbquery function
-
-            // call main prompt
-            await mainPrompt();
+            else if(update.update_choice === 'Last Name'){
+                var upLast= await inquirer.prompt([{
+                    type:'input',
+                    name:'update_ln',
+                    message:'Input the updated last name'
+                }]);
+                db.query(`UPDATE employee SET lastName =? WHERE em_id=?`,[upLast.update_ln,updateByID.upByID],(err)=>{
+                    if(err) throw err;
+                    mainPrompt();
+                })
+            }
+        
+            else if(update.update_choice === 'Role of Employee'){
+                var uprole= await inquirer.prompt([{
+                    type:'input',
+                    name:'update_re',
+                    message:'Input the updated role of employee'
+                }]);
+                db.query(`UPDATE employee SET em_role =? WHERE em_id=?`,[uprole.update_re,updateByID.upByID],(err)=>{
+                    if(err) throw err;
+                    mainPrompt();
+                })
+            }
+            else {
+                var upManager= await inquirer.prompt([{
+                    type:'input',
+                    name:'update_man',
+                    message:'Input the updated role of employee'
+                }]);
+                db.query(`UPDATE employee SET ManagerName =? WHERE em_id=?`,[upManager.update_man,updateByID.upByID],(err)=>{
+                    if(err) throw err;
+                    mainPrompt();
+                })
+            }
+   
         }
 
         else {
