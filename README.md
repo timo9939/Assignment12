@@ -9,7 +9,8 @@ N/A
 <br/>
 
 ## Screenshot
-![Assignment12 Screenshot](Cap_Assi12.png)
+![Assignment12 Screenshot](Cap_Assi12.PNG)
+
 <br/>
 
 ## Video Link
