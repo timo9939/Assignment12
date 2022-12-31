@@ -14,3 +14,4 @@ N/A
 <br/>
 
 ## Video Link
+https://github.com/timo9939/Assignment12/blob/main/Assignment12%20Video.mp4
